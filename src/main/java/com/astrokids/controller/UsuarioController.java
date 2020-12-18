@@ -1,5 +1,6 @@
 package com.astrokids.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.astrokids.model.Familia;
 import com.astrokids.model.Usuario;
 import com.astrokids.repository.FamiliaRepository;
 import com.astrokids.repository.UsuarioRepository;
+import com.astrokids.vo.DominioVO;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -48,9 +50,6 @@ public class UsuarioController {
 		return usuarioRepository.save(usuario);
 	}
 	
-//	@GetMapping("/usuario/{id}")
-//	public Usuario
-	
 	@PutMapping("/usuario")
 	public Usuario atualizarUsuario(@RequestBody Usuario usuario) {
 		if (null != usuario.getFamilia().getIdFamilia()) {
@@ -63,5 +62,18 @@ public class UsuarioController {
 	@DeleteMapping("/usuario/{id}")
 	public void apagarUsuario (@PathVariable(value = "id") Long id) {
 		usuarioRepository.deleteById(id);
+	}
+	
+	@PostMapping("/login")
+	public Usuario validarLogin(@RequestBody DominioVO dominio) {
+		System.out.println(dominio.getUsuario()+ " "+dominio.getSenha());
+		Usuario usuarioEdit = usuarioRepository.buscarUsuario(dominio.getUsuario());
+		if(null == usuarioEdit) {
+			return null;
+		} 
+		if(!usuarioEdit.getSenha().equals(dominio.getSenha())) {
+			return null;
+		}
+		return usuarioEdit;
 	}
 }

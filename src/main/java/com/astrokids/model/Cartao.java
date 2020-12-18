@@ -25,5 +25,5 @@ public class Cartao {
 	private Long idCartao;
 	private String nomeCartao;
 	private String descricao;
-	private String caminhoImg;	
+	private String caminhoImg;
 }
