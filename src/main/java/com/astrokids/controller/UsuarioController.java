@@ -46,7 +46,6 @@ public class UsuarioController {
 			Optional<Familia> familia = familiaRepository.findById(this.familia.getIdFamilia());
 			usuario.setFamilia(familia.get());
 		}
-		System.out.println("Na segunda vez"+this.familia);
 		return usuarioRepository.save(usuario);
 	}
 	
@@ -66,7 +65,6 @@ public class UsuarioController {
 	
 	@PostMapping("/login")
 	public Usuario validarLogin(@RequestBody DominioVO dominio) {
-		System.out.println(dominio.getUsuario()+ " "+dominio.getSenha());
 		Usuario usuarioEdit = usuarioRepository.buscarUsuario(dominio.getUsuario());
 		if(null == usuarioEdit) {
 			return null;

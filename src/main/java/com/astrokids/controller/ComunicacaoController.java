@@ -55,14 +55,15 @@ public class ComunicacaoController {
 	
 	@PostMapping("/enviar")
 	public Cartao enviarCartao(@RequestBody Usuario usuario) {
-//		this.usuario = usuarioRepository.findById(usuario.getIdUsuario()).get();
-//		this.usuario.getCartoes().add(cartao);
-//		usuarioRepository.save(this.usuario);
-//		this.familia = this.usuario.getFamilia();
-//		this.familia.getCartoes().add(cartao);
-//		familiaRepository.save(this.familia);
+		System.out.println("aaaaaa"+usuario);
+		this.usuario = new Usuario();
+		this.familia = new Familia();
+		usuarioRepository.save(usuario);
+		this.usuario = usuarioRepository.findById(usuario.getIdUsuario()).get();
+		this.familia = this.usuario.getFamilia();
+		this.familia.setCartoes(usuario.getCartoes());
+		this.familia = familiaRepository.save(this.familia);
 		
-		System.out.println("aaaaaa"+usuario+" "+cartao);
 		
 		return null;
 	}
